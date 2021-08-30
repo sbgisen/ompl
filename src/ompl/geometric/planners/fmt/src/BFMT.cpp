@@ -689,6 +689,10 @@ namespace ompl
                             // Only include neighbors that are mutually k-nearest
                             // Relies on NN datastructure returning k-nearest in sorted order
                             const base::Cost connCost = opt_->motionCost(j->getState(), m->getState());
+                            if(neighborhoods_[j].size() == 0){
+                                printf("***** empty neighboorhood detected, skipping ****\n");
+                                continue;
+                            }
                             const base::Cost worstCost =
                                 opt_->motionCost(neighborhoods_[j].back()->getState(), j->getState());
 
