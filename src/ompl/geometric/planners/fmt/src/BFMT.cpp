@@ -658,7 +658,7 @@ namespace ompl
                 for (auto &j : nbh)
                 {
                     if(neighborhoods_[j].size() == 0){
-                        printf("***** empty neighboorhood detected, skipping ****\n");
+                        OMPL_ERROR("***** empty neighboorhood detected, skipping ****");
                     }
                     else if (j->getCurrentSet() == BiDirMotion::SET_CLOSED)
                     {
