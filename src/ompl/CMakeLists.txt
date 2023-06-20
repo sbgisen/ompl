@@ -3,8 +3,10 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/config.h"
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/ompl"
     COMPONENT ompl)
 
-file(GLOB_RECURSE OMPL_SOURCE_CODE datastructures/*.cpp util/*.cpp base/*.cpp geometric/*.cpp control/*.cpp tools/*.cpp)
-file(GLOB_RECURSE OMPL_HEADERS datastructures/*.h util/*.h base/*.h geometric/*.h control/*.h tools/*.h)
+file(GLOB_RECURSE OMPL_SOURCE_CODE datastructures/*.cpp util/*.cpp base/*.cpp
+  geometric/*.cpp control/*.cpp multilevel/*.cpp tools/*.cpp)
+file(GLOB_RECURSE OMPL_HEADERS datastructures/*.h util/*.h base/*.h
+  geometric/*.h control/*.h multilevel/*.h tools/*.h)
 
 #############################################
 # Add enabled extensions to the source code #
@@ -19,21 +21,6 @@ file(GLOB_RECURSE OMPL_HEADERS datastructures/*.h util/*.h base/*.h geometric/*.
 ##    or they are added to the list of OMPL_LINK_LIBRARIES
 #
 #endif()
-
-if (OMPL_EXTENSION_MORSE)
-    file(GLOB_RECURSE OMPL_MORSE_EXTENSION_SOURCE_CODE extensions/morse/*.cpp)
-    file(GLOB_RECURSE OMPL_MORSE_EXTENSION_HEADERS extensions/morse/*.h)
-    set(OMPL_SOURCE_CODE ${OMPL_SOURCE_CODE} ${OMPL_MORSE_EXTENSION_SOURCE_CODE})
-    set(OMPL_HEADERS ${OMPL_HEADERS} ${OMPL_MORSE_EXTENSION_HEADERS})
-endif()
-
-if (OMPL_EXTENSION_ODE)
-    file(GLOB_RECURSE OMPL_ODE_EXTENSION_SOURCE_CODE extensions/ode/*.cpp)
-    file(GLOB_RECURSE OMPL_ODE_EXTENSION_HEADERS extensions/ode/*.h)
-    set(OMPL_SOURCE_CODE ${OMPL_SOURCE_CODE} ${OMPL_ODE_EXTENSION_SOURCE_CODE})
-    set(OMPL_HEADERS ${OMPL_HEADERS} ${OMPL_ODE_EXTENSION_HEADERS})
-    list(APPEND OMPL_LINK_LIBRARIES "${ODE_LIBRARIES}")
-endif()
 
 if (OMPL_EXTENSION_TRIANGLE)
     file(GLOB_RECURSE OMPL_TRIANGLE_EXTENSION_SOURCE_CODE extensions/triangle/*.cpp)
@@ -58,14 +45,6 @@ target_link_libraries(ompl
     ${Boost_FILESYSTEM_LIBRARY}
     ${Boost_SYSTEM_LIBRARY}
     ${CMAKE_THREAD_LIBS_INIT})
-
-if (OMPL_EXTENSION_ODE)
-    if (NOT CMAKE_VERSION VERSION_LESS 3.13)
-        target_link_directories(ompl PUBLIC ${ODE_LIBRARY_DIRS})
-    else()
-        link_directories(ompl ${ODE_LIBRARY_DIRS})
-    endif()
-endif()
 
 if (OMPL_HAVE_SPOT)
     target_link_libraries(ompl ${SPOT_LIBRARIES})

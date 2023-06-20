@@ -12,7 +12,7 @@ Below we include a number of tutorials we believe are useful for understanding h
 - [Benchmarking planners](benchmark.html)
 - [Optimal planning](optimalPlanningTutorial.html) (see also the [high-level introduction](optimalPlanning.html))
 - [Constrained planning](constrainedPlanningTutorial.html) (see also the [high-level introduction](constrainedPlanning.html))
-- [QuotientSpace planning](quotientSpacePlanningTutorial.html) (see also the [high-level introduction](quotientSpacePlanning.html))
+- [Multilevel planning](multiLevelPlanningTutorial.html) (see also the [high-level introduction](multiLevelPlanning.html))
 
 ## Intermediate
 
@@ -28,4 +28,3 @@ Below we include a number of tutorials we believe are useful for understanding h
 - [Adding a new planner](newPlanner.html)
 - [Creating Python bindings for a new planner](pybindingsPlanner.html)
 - [Setting up a projection](projections.html)
-- [Using OMPL with the Morse simulator](morse.html)

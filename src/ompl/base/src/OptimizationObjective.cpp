@@ -88,6 +88,11 @@ ompl::base::Cost ompl::base::OptimizationObjective::betterCost(Cost c1, Cost c2)
     return isCostBetterThan(c1, c2) ? c1 : c2;
 }
 
+ompl::base::Cost ompl::base::OptimizationObjective::controlCost(const control::Control *, unsigned int) const
+{
+    return identityCost();
+}
+
 ompl::base::Cost ompl::base::OptimizationObjective::combineCosts(Cost c1, Cost c2) const
 {
     return Cost(c1.value() + c2.value());
@@ -154,6 +159,11 @@ ompl::base::Cost ompl::base::OptimizationObjective::costToGo(const State *state,
 }
 
 ompl::base::Cost ompl::base::OptimizationObjective::motionCostHeuristic(const State *, const State *) const
+{
+    return identityCost();  // assumes that identity < all costs
+}
+
+ompl::base::Cost ompl::base::OptimizationObjective::motionCostBestEstimate(const State *, const State *) const
 {
     return identityCost();  // assumes that identity < all costs
 }

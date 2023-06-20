@@ -77,7 +77,12 @@ namespace ompl
             PathGeometric(const base::SpaceInformationPtr &si, const base::State *state);
 
             /** \brief Construct a path instance from two states (thus making a segment) */
-            PathGeometric(const base::SpaceInformationPtr &si, const base::State *state1, const base::State *state2);
+            PathGeometric(const base::SpaceInformationPtr &si, 
+                const base::State *state1, const base::State *state2);
+
+            /** \brief Construct a path from a sequence of states */
+            PathGeometric(const base::SpaceInformationPtr &si, 
+                std::vector<const base::State *> &states);
 
             ~PathGeometric() override
             {
@@ -172,8 +177,7 @@ namespace ompl
                 \return A pair of boolean values is returned. The first
                 value represents the validity of the path before any
                 change was made. The second value represents the
-                validity of the path after changes were attempted. If
-                no changes are attempted, the both values are true.
+                validity of the path after changes were attempted.
 
                 \note If repairing a path fails, the path may still be altered */
             std::pair<bool, bool> checkAndRepair(unsigned int attempts);
