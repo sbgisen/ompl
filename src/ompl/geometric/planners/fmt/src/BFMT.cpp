@@ -633,6 +633,7 @@ namespace ompl
             std::vector<base::Cost> incCosts;
             std::vector<std::size_t> sortedCostIndices;
 
+            nbh.clear();
             // our functor for sorting nearest neighbors
             CostIndexCompare compareFn(costs, *opt_);
 
@@ -651,10 +652,18 @@ namespace ompl
                 else
                     nn_->nearestR(m, NNr_, nbh);
 
+                if (nbh.size() == 0)
+                {
+                    continue;
+                }
                 yNear.reserve(nbh.size());
                 for (auto &j : nbh)
                 {
-                    if (j->getCurrentSet() == BiDirMotion::SET_CLOSED)
+                    if (neighborhoods_[j].size() == 0)
+                    {
+                        OMPL_ERROR("***** empty neighboorhood detected, skipping ****");
+                    }
+                    else if (j->getCurrentSet() == BiDirMotion::SET_CLOSED)
                     {
                         if (nearestK_)
                         {
