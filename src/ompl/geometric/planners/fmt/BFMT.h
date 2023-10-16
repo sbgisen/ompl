@@ -546,7 +546,7 @@ namespace ompl
             void updateNeighborhood(BiDirMotion *m, std::vector<BiDirMotion *> nbh);
 
             /** \brief Extended FMT strategy: inserts a new motion in open if the heap is empty */
-            void insertNewSampleInOpen(const base::PlannerTerminationCondition &ptc);
+            bool insertNewSampleInOpen(const base::PlannerTerminationCondition &ptc);
 
             /** \brief The number of samples to use when planning */
             unsigned int numSamples_{1000u};

@@ -609,7 +609,10 @@ namespace ompl
                             }
                         }
                         else  // However, if eFMT is enabled, run it.
-                            insertNewSampleInOpen(ptc);
+                        {
+                            if(!insertNewSampleInOpen(ptc))
+                                return true;
+                        }
                     }
 
                     // This function will be always reached with at least one state in one heap.
@@ -624,7 +627,7 @@ namespace ompl
             return earlyFailure;
         }
 
-        void BFMT::insertNewSampleInOpen(const base::PlannerTerminationCondition &ptc)
+        bool BFMT::insertNewSampleInOpen(const base::PlannerTerminationCondition &ptc)
         {
             // Sample and connect samples to tree only if there is
             // a possibility to connect to unvisited nodes.
@@ -662,6 +665,7 @@ namespace ompl
                     if (neighborhoods_[j].size() == 0)
                     {
                         OMPL_ERROR("***** empty neighboorhood detected, skipping ****");
+                        return false;
                     }
                     else if (j->getCurrentSet() == BiDirMotion::SET_CLOSED)
                     {
@@ -739,6 +743,7 @@ namespace ompl
                     }
                 }
             }  // While Open_[tree_] empty
+            return true;
         }
 
         bool BFMT::termination(BiDirMotion *&z, BiDirMotion *&connection_point,
